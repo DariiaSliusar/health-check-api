@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('health_check_logs', function (Blueprint $table) {
             $table->id();
-            $table->id();
             $table->uuid('owner_id');
             $table->string('ip_address', 45)->nullable();
             $table->json('status');
             $table->smallInteger('response_code');
-            $table->timestamps();
             $table->timestamps();
         });
     }

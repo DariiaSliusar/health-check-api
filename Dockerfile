@@ -19,15 +19,15 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-COPY . .
+# Копіюємо composer файли для кешування
+COPY composer.json composer.lock ./
 
-RUN composer install --prefer-dist --no-interaction --optimize-autoloader
-
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
-    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
-
+# Копіюємо entrypoint
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Копіюємо решту файлів проекту
+COPY . .
 
 EXPOSE 9000
 
