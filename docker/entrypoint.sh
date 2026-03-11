@@ -32,19 +32,21 @@ chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
 # Очікування готовності MySQL з retry логікою
 echo "⏳ Waiting for MySQL to be ready..."
-max_tries=60
+max_tries=30
 counter=0
-until php artisan db:show > /dev/null 2>&1 || [ $counter -eq $max_tries ]; do
+until php artisan tinker --execute="DB::connection()->getPdo();" > /dev/null 2>&1 || [ $counter -eq $max_tries ]; do
     counter=$((counter+1))
     if [ $((counter % 10)) -eq 0 ]; then
         echo "Still waiting for database... ($counter/$max_tries)"
     fi
-    sleep 2
+    sleep 1
 done
 
 if [ $counter -eq $max_tries ]; then
     echo "⚠️  Warning: Could not verify database connection"
     echo "Will attempt migrations anyway..."
+else
+    echo "✅ Database connection verified"
 fi
 
 # Завжди намагаємося запустити міграції
