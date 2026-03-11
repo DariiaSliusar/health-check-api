@@ -5,7 +5,6 @@ Laravel проект з Docker підтримкою.
 ## Запуск
 
 ```bash
-git clone {repoName}
 cd health-check-api
 docker compose up -d
 ```
@@ -137,11 +136,4 @@ docker compose up -d
 ## Ліцензія
 
 MIT
-
-
-
-
-
-
-
 
