@@ -20,7 +20,7 @@ class HealthCheckController extends Controller
         $status = $this->healthCheckService->check();
         $responseCode = in_array(false, $status, strict: true) ? 500 : 200;
 
-        HealthCheckLog::create([
+        HealthCheckLog::query()->create([
             'owner_id'      => $request->header('X-Owner'),
             'ip_address'    => $request->ip(),
             'status'        => $status,
