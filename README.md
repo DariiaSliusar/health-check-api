@@ -5,6 +5,7 @@ Laravel проект з Docker підтримкою.
 ## Запуск
 
 ```bash
+git clone https://github.com/DariiaSliusar/health-check-api.git
 cd health-check-api
 docker compose up -d
 ```
